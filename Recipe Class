@@ -1,0 +1,260 @@
+package Milestones;
+import java.util.Scanner;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author addam-rouse
+ */
+//Creating a Recipe class 
+public class Recipe {
+    
+    // Declaring variables in Recipe class
+    private String recipeName; //Create variable for recipe name
+    private int servings; // Create variable for number of servings
+    private ArrayList<Ingredient> recipeIngredients = new ArrayList<>(); // Create array list for recipeIngredients
+    private ArrayList<String> recipeInstructions = new ArrayList<>(); // Create array list for recipeInstructions
+    private double totalRecipeCalories; // Create variables for number of total calories in recpie
+    
+
+    /**
+     *
+     * @return
+     */
+    public String getRecipeName() {  //Method to get the name of the recipe
+        return recipeName;
+    }
+
+
+    /**
+     *
+     * @param recipeName
+     */
+    public void setRecipeName(String recipeName) {  //Method to set the name of the recipe
+        this.recipeName = recipeName;
+    }
+
+
+    /**
+     *
+     * @return
+     */
+    public int getServings() { //Method to get the number of servings
+        return servings;
+    }
+
+    
+
+    /**
+     *
+     * @param servings
+     */
+    public void setServings(int servings) { //Method to set the number of servings
+        this.servings = servings;
+    }
+
+   
+
+    /**
+     *
+     * @return
+     */
+    public ArrayList<Ingredient> getRecipeIngredients() { //Get recipe ingredients from array list recipeIngredients
+        return recipeIngredients;
+    }
+
+    
+
+    /**
+     *
+     * @param recipeIngredients
+     */
+    public void setRecipeIngredients(ArrayList<Ingredient> recipeIngredients) { //Set recipe ingredients in array list recipeIngredients
+        this.recipeIngredients = recipeIngredients;
+    }
+
+    
+
+    /**
+     *
+     * @return
+     */
+    public double getTotalRecipeCalories() { //Method to get the total recipe calories
+        return totalRecipeCalories;
+    }
+
+    
+
+    /**
+     *
+     * @param totalRecipeCalories
+     */
+    public void setTotalRecipeCalories(double totalRecipeCalories) { //Method to set the total recipe calories
+        this.totalRecipeCalories = totalRecipeCalories;
+    }
+   /**
+     * @return the recipeInstructions
+     */
+    public ArrayList<String> getRecipeInstructions() { //Method to get the recipe instructions
+        return recipeInstructions;
+    }
+
+    /**
+     * @param recipeInstructions the recipeInstructions to set
+     */
+    public void setRecipeInstructions(ArrayList<String> recipeInstructions) { //Method to set the recipe instructions
+        this.recipeInstructions = recipeInstructions;
+    }
+     
+    //Defining constructor
+
+    public Recipe() {
+        //Initializing variables
+        this.recipeName = "";
+        this.servings = 0; 
+        this.recipeIngredients = new ArrayList<>(); 
+        this.recipeInstructions = new ArrayList<>();
+        this.totalRecipeCalories = 0.0;
+        
+    }
+    //Parameterized constructor with appropriate data types
+
+    /**
+     *
+     * @param recipeName
+     * @param servings
+     * @param recipeIngredients
+     * @param recipeInstructions
+     * @param totalRecipeCalories
+     */
+    public Recipe(String recipeName, int servings, 
+    	ArrayList<Ingredient> recipeIngredients, ArrayList<String> recipeInstructions, double totalRecipeCalories) {
+    
+    
+    this.recipeName = recipeName;
+    this.servings = servings;
+    this.recipeIngredients = recipeIngredients;
+    this.recipeInstructions = recipeInstructions;
+    this.totalRecipeCalories = totalRecipeCalories;
+    }
+    
+    /**
+     *
+     */
+    public void AddInstructions (){
+        // Declaring variables
+        ArrayList<String> recipeInstructions = new ArrayList<>();
+        boolean addMoreInstructions = true;
+        
+        //Created an object of the scanner class to allow input
+        Scanner scnr = new Scanner(System.in);
+        
+        /**
+        * Do loop prompts the user to enter the recipe instructions and then stores the name in the recipeInstructions ArrayList
+        * The loop will continue until the user types end
+        */
+        do {
+            System.out.println("Please enter the recipe instruction or type 'end' if you are finished entering instructions: ");
+                String instructions = scnr.nextLine();
+            
+            if (instructions.toLowerCase().equals("end")) {
+                addMoreInstructions = false;
+            } else {
+                recipeInstructions.add(instructions);
+                    addMoreInstructions = true; 
+            }
+           
+       } while (addMoreInstructions) ;
+       
+    }
+
+
+
+    /**
+     *
+     */
+    public void printRecipe() { // Print recipe details
+        //Declares and assigns singleServingCalories
+        double singleServingCalories = totalRecipeCalories / servings;
+
+        // Print recipe name and servings
+        System.out.println("Recipe: " + getRecipeName());    
+        System.out.println("Serves: " + getServings());      
+
+        // Print ingredient list
+        System.out.println("Ingredients: ");
+        
+        //For loop to print the ingredient names one per line by interating through the recipeIngredients ArrayList
+        for (int i = 0; i < recipeIngredients.size(); i++){
+            Ingredient  listOfIngredients = getRecipeIngredients().get(i);
+            String list = listOfIngredients.nameOfIngredient; 
+            System.out.println(list);
+        }
+
+        // Print single serving calories
+        System.out.println("Each serving has " + singleServingCalories + " Calories.");
+    }
+    
+   
+
+    /**
+     *
+     * @return
+     */
+    public Recipe createNewRecipe() { //Create new recipe method
+        // Declaring variables 
+        double totalRecipeCalories = 0.0;
+        ArrayList <Ingredient> recipeIngredients = new ArrayList();
+        boolean addMoreIngredients = true;
+        Ingredient ingr;
+        
+       //Created an object of the scanner class to allow input
+        Scanner scnr = new Scanner(System.in);
+        
+        //Prompts the user to enter the name of the recipe
+        System.out.println("Please enter the recipe name: ");
+        String recipeName = scnr.nextLine();
+        
+        //Prompts the user to enter the number of servings
+        System.out.println("Please enter the number of servings: ");
+        int servings = scnr.nextInt(); 
+      
+        /**
+        * Do loop prompts the user to enter the name of the ingredient and then stores the name in the recipeIngredients ArrayList
+        * Then it prompts the user to enter the ingredient amount and ingredient calories
+        * Then it finds their product to add it to the totalRecipeCalories
+        * The loop will continue until the user types end
+        */
+        do {
+            System.out.println("Please enter the ingredient name or type 'end' if you are finished entering ingredients: ");
+                String ingredientName = scnr.next();
+            
+            if (ingredientName.toLowerCase().equals("end")) {
+                addMoreIngredients = false;
+            } else {
+                ingr = new Ingredient();
+                ingr.setNameOfIngredient(ingredientName);
+                recipeIngredients.add(ingr);
+                    addMoreIngredients = true;
+                
+        
+                System.out.println("Please enter the ingredient amount: ");
+                    float ingredientAmount = scnr.nextFloat();
+            
+                System.out.println("Please enter the ingredient Calories: ");
+                    int ingredientCalories = scnr.nextInt();
+                
+                /*Total recipe calories equals the product of ingredientCalories and ingredientAmount. 
+                    It continues adding the total calories from every ingredient to the existing
+                    totalRecipeCalories
+                    */  
+                totalRecipeCalories += (ingredientCalories * ingredientAmount);
+            }
+           
+       } while (addMoreIngredients) ;
+        
+        Recipe recipe1 = new Recipe(recipeName, servings, recipeIngredients,recipeInstructions,totalRecipeCalories);
+        recipe1.printRecipe();
+       return recipe1;
+    }
+}
