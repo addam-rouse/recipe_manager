@@ -1,0 +1,333 @@
+package Milestones;
+
+import java.util.Scanner;
+/**
+ *
+ * @author addam-rouse
+ */
+
+public class Ingredient { //Creating an Ingredient class 
+       
+    //Declaring public variables in Ingredient class
+    public String nameOfIngredient; // Create variable for the name of the ingredient
+    public String unitMeasurement; // Create variable for unit of measurement
+    public float ingredientAmount; // Create variable for the amount of the ingredient
+    public int numberCaloriesPerUnit; // Create variable for the number of calories per measuerment unit
+    public double totalCalories; // Create variable  for the total number of calories in the ingredient
+
+    /**
+     *
+     * @param nameOfIngredient
+     */
+
+    public void setNameOfIngredient(String nameOfIngredient){ //Method to set name of ingredient
+        
+         this.nameOfIngredient = nameOfIngredient;
+    }
+
+    /**
+     *
+     * @return the nameOfIngredient
+     */
+
+    public String getNameOfIngredient(){ //Method to get name of ingredient
+        
+        return nameOfIngredient;
+    }
+    /**
+     * @return the unitMeasurement
+     */
+    public String getUnitMeasurement() {
+        return unitMeasurement;
+    }
+
+    /**
+     * @param unitMeasurement the unitMeasurement to set
+     */
+    public void setUnitMeasurement(String unitMeasurement) {
+        this.unitMeasurement = unitMeasurement;
+    }
+
+    /**
+     *
+     * @param ingredientAmount
+     */
+
+    public void setIngredientAmount(float ingredientAmount){ //Method to set ingredient amount
+        
+        this.ingredientAmount = ingredientAmount;
+    }
+
+    /**
+     *
+     * @return the ingredientAmount
+     */
+  
+    public float getIngredientAmount(){ //Method to get ingredient amount 
+        
+        return ingredientAmount;
+    }
+
+    /**
+     *
+     * @param numberCaloriesPerUnit
+     */
+
+    public void setNumberCaloriesPerUnit(int numberCaloriesPerUnit){ //Method to set number of calories per unit
+        
+        this.numberCaloriesPerUnit = numberCaloriesPerUnit;
+    }
+
+    /**
+     *
+     * @return the numberCaloriesPerUnit
+     */
+
+    public int getNumberCaloriesPerUnit(){ //Method to get number of calories per unit
+        
+        return numberCaloriesPerUnit;
+    }
+
+    /**
+     *
+     * @param totalCalories
+     */
+
+    public void setTotalCalories (double totalCalories){ //Method to set total number of calories
+        this.totalCalories = totalCalories;
+    }
+       
+    /**
+     *
+     * @return the totalCalories
+     */
+    
+    public double getTotalCalories(){ //Method to get total number of calories
+        // Calculate total calories
+        totalCalories = ingredientAmount * numberCaloriesPerUnit;
+        return totalCalories;
+    }
+    
+    //Defining a constructor
+
+    public Ingredient(){
+        /*Initializing variables*/
+        this.nameOfIngredient = "";
+        this.unitMeasurement = "";
+        this.ingredientAmount = 0;
+        this.numberCaloriesPerUnit = 0;
+        this.totalCalories = 0.0;
+    }
+    
+    //Overloaded constructor with appropriate data types
+
+    /**
+     *
+     * @param nameOfIngredient
+     * @param unitMeasurement
+     * @param ingredientAmount
+     * @param numberCaloriesPerUnit
+     * @param totalCalories
+     */
+    public void Ingredient(String nameOfIngredient, String unitMeasurement, 
+            Float ingredientAmount, int numberCaloriesPerUnit, double totalCalories){
+        this.nameOfIngredient = nameOfIngredient;
+        this.unitMeasurement = unitMeasurement;
+        this.ingredientAmount = ingredientAmount;
+        this.numberCaloriesPerUnit = numberCaloriesPerUnit;
+        this.totalCalories = totalCalories;
+    }
+   
+    /**
+     *
+     * @return
+     */
+    public Ingredient addIngredient (){  //Method to add a new ingredient
+      
+      //Ingredient object created to be able to use class methods
+      Ingredient ingr = new Ingredient();
+      
+      //Created an object of the scanner class to allow input
+      Scanner scnr = new Scanner (System.in);
+      
+      System.out.println("Please enter the name of the ingredient: "); /*Prompts the user to enter
+      the name of the ingredient
+      */
+      
+      if (scnr.hasNext()){
+          nameOfIngredient = scnr.next();
+          
+          if (nameOfIngredient.matches("[a-zA-z]*")){
+              System.out.println(nameOfIngredient + " is a valid name for an ingredient!");
+              /*If the name of the ingredient the user input are letters a-z and/or A-Z, the program will
+              output that the ingredient the user entered is a valid name. 
+              */
+                      
+          } else {
+              System.out.println(nameOfIngredient + " is not a valid name for an ingredient!");
+              System.out.println("Please enter the name of the ingredient with letters a-z and/or A-Z: ");
+              nameOfIngredient = scnr.next();
+              /*If the user inputs a name of an ingredient that are not letters a-z and/or A-Z,
+              the program will output that it is not a valid name and will prompt the user again to enter
+              the name of the ingredient using letters a-z or A-Z.
+              */
+              
+              if (nameOfIngredient.matches("[a-zA-z]*")){
+                System.out.println(nameOfIngredient + " is a valid name for an ingredient!");
+                /*On the second attempt if the user inputs a name of an ingredient that uses a-z and/or
+                A-Z the output will be that it is a valid name.
+                */
+                
+          } else {
+                  System.out.println(nameOfIngredient + " is not a valid name for an ingredient! Sorry you are out of attempts!");
+                  /*On the second attemp if the user inputs a name of an ingredient that does not use a-z and/or A-Z the output will
+                  tell the user that is not a valid name and they are out of attempts.
+                  */
+              }   
+         }
+          
+      } 
+      ingr.setNameOfIngredient(nameOfIngredient);
+      /*Setter method to store the value of the name of the ingredient and assigns it to nameOfIngredient
+      */
+      
+      // Prompts the user to enter the unit of measurement for the ingredient. The user needs to enter one of the options exactly how they are typed.
+      System.out.println("Please enter the unit of measurement for the ingredient. Please choose from the following measurement options:");
+      System.out.println("ounce");
+      System.out.println("cup");
+      System.out.println("tbsp");
+      System.out.println("tsp");
+      
+        if (scnr.hasNext()){
+            unitMeasurement = scnr.next();
+            
+            if ("ounce".equals(unitMeasurement)|| "cup".equals(unitMeasurement)|| "tbsp)".equals(unitMeasurement) 
+                    || "tsp".equals(unitMeasurement)){
+                System.out.println("You have chosen " + unitMeasurement);
+            //If the user inputs one of the options as they are typed above, the output will confirm which measuerment was selected.
+               
+            } else {
+                System.out.println(unitMeasurement + " is not a valid measurement unit.");
+                System.out.println("Please enter one of the options.");
+                unitMeasurement = scnr.next();
+                /*If the user inputs something that does not match the the typed options, they will be told their input is not valid
+                and they will be asked to enter one of the options again
+                */
+             
+                if ("ounce".equals(unitMeasurement)|| "cup".equals(unitMeasurement)|| "tbsp)".equals(unitMeasurement) 
+                    || "tsp".equals(unitMeasurement)){
+                    System.out.println("You have chosen " + unitMeasurement);
+                //If on the second attempt, the user inputs one of the options as they are typed above, the output will confirm which measuerment was selected.
+                
+                } else { 
+                    System.out.println(unitMeasurement + " is not a valid measurement unit. Sorry you are out of attempts.");
+                /*If on the second attempt, the user inputs something that does not match the the typed options, they will be told their input is not valid
+                and they will be told they are out of attempts
+                */    
+                }
+            }
+        } else {
+            System.out.println("Error: That is not a measurement unit. Try again."); 
+            /* If the user's input is a number of special character, the program will tell the user there is an error because they did not enter a 
+            measurement unit and they will be told to try again.
+            */ 
+        } 
+        
+        ingr.setUnitMeasurement(unitMeasurement);
+        //Setter method to store the unit of measurement and assigns it to unitMeasurement
+        
+      
+     System.out.println("Please enter the number of " + unitMeasurement + ":");
+     /*Prompts the user to enter the number of units of measurement
+     */
+        
+        if (scnr.hasNextFloat()) {
+            ingredientAmount = scnr.nextFloat();
+            
+            if (ingredientAmount > 0) {
+                System.out.println(ingredientAmount + " is a valid number of " + unitMeasurement + "(s)!"); 
+                /* If the user inputs a number that is greater than 0, the program will print 
+                out their number is a valid number.
+                */
+                
+            } else {
+                    System.out.println(ingredientAmount + " is not a valid number of " + unitMeasurement + "(s)!");
+                    System.out.println("Please enter a number of " + unitMeasurement + " greater than 0: ");
+                    ingredientAmount = scnr.nextFloat(); 
+                    /* If the user inputs a number that is not less than 0,
+                    the program will print out their number is not a valid number of units of measurement. It will also prompt the user to
+                    re-enter a valid number of units of measurement.
+                    */
+            
+                    if (ingredientAmount > 0 ) {
+                        System.out.println(ingredientAmount + " is a valid number of " + unitMeasurement + "(s)!");
+                        /* On the second attempt, if the user inputs a number that is greater than 0, the program will 
+                        print out their number is a valid number.
+                        */
+                    } else { 
+                        System.out.println(ingredientAmount + " is not greater than 0. Sorry you are out of attempts.");  
+                        /* If on the second attempt, the user inputs a number that is not greater than 0, the program will tell them they are out of attempts
+                        because their number is not greater than 0.
+                        */
+                    }      
+            }
+      } else {
+            System.out.println("Error: That is not a number. Try again."); 
+            /* If the user's input is not a number, the program will tell the user there is an error because they did not enter a 
+            number and they will be told to try again.
+            */ 
+        } 
+        
+        ingr.setIngredientAmount(ingredientAmount);
+        //Setter method to store the value of the ingredient amount and assigns it to ingredientAmount
+        
+         System.out.println("Please enter the number of calories per " + unitMeasurement + ":");
+         //Prompts the user to enter the number of calories per unit of measurement
+         
+        if (scnr.hasNextInt()) {
+            numberCaloriesPerUnit = scnr.nextInt();
+            
+            if (numberCaloriesPerUnit > 0) {
+                System.out.println(numberCaloriesPerUnit + " is a valid number of calories per " + unitMeasurement + "!"); /* If the user unputs a number that 
+                is greater than 0, the program will print out their number is a valid number.
+                */
+            } else {
+                    System.out.println(numberCaloriesPerUnit + " is not a valid number of calories per " + unitMeasurement + "!");
+                    System.out.println("Please enter another number of calories per " + unitMeasurement + " that is greater than 0: ");
+                    numberCaloriesPerUnit = scnr.nextInt(); /* If the user inputs a number that is not greater than 0,
+                    the program will output their number is not a valid number of calories per unit of measurement. It will also prompt the user to
+                    re-enter a valid number of calories per unit of measurement.
+                    */
+            
+                    if (numberCaloriesPerUnit > 0) {
+                        System.out.println(numberCaloriesPerUnit + " is a valid number of calories per " + unitMeasurement + "!");
+                        /* On the second attempt, if the user unputs a number that 
+                        is greater than 0, the program will print out their number is a valid number.
+                        */
+
+                    } else { 
+                        System.out.println(numberCaloriesPerUnit + " is not greater than 0. Sorry you are out of attempts."); 
+                        /* On the second attempt, if the user inputs a number that is not greater than 0, the program will tell them 
+                        they are out of attempts because their number is not greater than 0.
+                        */
+                    }       
+            }
+      } else {
+            System.out.println("Error: That is not a number. Try again."); 
+            /* If the user's input is not a number, the program will tell the user there is an error because they did not enter 
+            a number and they will be told to try again.
+            */  
+        } 
+        
+        ingr.setNumberCaloriesPerUnit(numberCaloriesPerUnit);
+        //Setter method to store the value of the number of calories per unit of measurement and assigns it to numberCaloriesPerUnit
+        
+
+        System.out.println(ingr.getNameOfIngredient() + " uses " + ingr.getIngredientAmount() + " " + ingr.getUnitMeasurement() + 
+                " and has " + ingr.getNumberCaloriesPerUnit() + " calories per " + ingr.getUnitMeasurement() + ".");
+        /*Prints out the name of the ingredient, the amount of the ingredient being used, the unit of measurement for the ingredient, 
+        and the number of calories per unit of measurement using the getter methods that return the values that are stored in the object
+        */
+        return ingr;
+    } 
+}
