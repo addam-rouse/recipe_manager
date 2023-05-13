@@ -1,0 +1,169 @@
+package Milestones;
+import java.util.ArrayList;
+import java.util.Scanner;
+/**
+ *
+ * @author addam-rouse
+ */
+
+/**
+ * this class acts as the menu for the recipe and does performs the operations according to user selection
+ */
+public class RecipeBox {
+ 
+    private ArrayList<Recipe> listOfRecipes; // Declaring array list of Recipe's
+    
+    /**
+     * To get the List of Recipes (Accessor)
+     * @return 
+     */
+    public ArrayList<Recipe> getListOfRecipes() {
+    	return listOfRecipes;      
+    } 
+    
+    /**
+     * To set the List of Recipes (Mutator) 
+     * @param listOfRecipes
+     */
+    public void setListOfRecipes(ArrayList<Recipe> listOfRecipes) {
+    	this.listOfRecipes = listOfRecipes;
+    }
+
+    /**
+     * Default Constructor
+     */
+    public RecipeBox(){
+        this.listOfRecipes = new ArrayList<>();
+    }
+
+    /**
+     * Custom method used to create new recipe with ingredients and add to list
+     */
+    public void addNewRecipe() {  
+        Recipe recipe = new Recipe();                
+        listOfRecipes.add(recipe.createNewRecipe());
+    }
+    
+    /**
+     * Custom Method which accepts the Recipe Name and displays the details for the Recipe
+     * @param selectedRecipeName
+     */
+    public void printAllRecipeDetails(String selectedRecipeName) {
+        int arrayListNumber = -1; //To get the location where the selected recipe is present in the array list
+        Recipe recipe; //variable of type Recipe
+
+        for(int i = 0; i < listOfRecipes.size(); i++) { //Looping through the listOfRecipes arraylist to find the location of the selected recipe
+           /** If the name of recipe at index i matches the selectRecipeName 
+            then it will assign arrayListNumber to i 
+            **/
+           if(listOfRecipes.get(i).getRecipeName().equals(selectedRecipeName)){
+               arrayListNumber = i;
+           }
+        }
+
+        if(arrayListNumber == -1){ //if the selected recipe is not present in the array list it will tell the user the name was not found
+            System.out.println("There was not a recipe found with the name: " + selectedRecipeName);
+        }
+        else{ //if the selected recipe is present in the array list it will get the recipe that matches the passed-in name
+            recipe = listOfRecipes.get(arrayListNumber); 
+            recipe.printRecipe(); //call method within Recipe to print the recipe details
+            
+        }
+    }
+
+    /**
+     * Custom Method to display all the recipes present in the recipe box
+     */
+    public void printAllRecipeNames(){
+        
+            System.out.println("\nList of Recipes:");
+        /** The for loop is used to print the names of all recipes in listOfRecipes, one per line **/
+        for (Recipe selectedRecipeName : listOfRecipes) {
+            System.out.println(selectedRecipeName.getRecipeName());
+        }
+    }
+    
+    /**
+     *
+     * @param selectedRecipeName
+     */
+    public void addRecipeInstructions (String selectedRecipeName){
+        int arrayListNumber = -1; //To get the location where the selected recipe is present in the array list
+        Recipe recipe; //variable of type Recipe
+
+        for(int i = 0; i < listOfRecipes.size(); i++) { //Looping through the listOfRecipes arraylist to find the location of the selected recipe
+           /** If the name of recipe at index i matches the selectRecipeName 
+            then it will assign arrayListNumber to i 
+            **/
+           if(listOfRecipes.get(i).getRecipeName().equals(selectedRecipeName)){
+               arrayListNumber = i;
+           }
+        }
+
+        if(arrayListNumber == -1){ //if the selected recipe is not present in the array list it will tell the user the name was not found
+            System.out.println("There was not a recipe found with the name: " + selectedRecipeName);
+        }
+        else{ //if the selected recipe is present in the array list it will get the recipe that matches the passed-in name
+            recipe = listOfRecipes.get(arrayListNumber); 
+            recipe.AddInstructions(); //call method within Recipe to add recipe instructions
+            
+        }
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        RecipeBox myRecipeBox = new RecipeBox(); // Creating object
+        Scanner menuScnr = new Scanner(System.in); // Creating Scanner object
+        boolean endOper = false;
+
+        /**
+         * Print a menu for the user to select one of the three options:
+         *
+         */
+
+        System.out.println("Menu\n" + "1. Add Recipe\n" + "2. Print All Recipe Details\n" + "3. Print All Recipe Names\n" + "4. Add Recipe Instrutions\n" + "5. End Operation\n" +"\nPlease select a menu item:");
+        while (!endOper && menuScnr.hasNextInt()) {
+            int input = menuScnr.nextInt();//Getting the input from the user
+            
+            /* Perform operations according to the menu item selected */
+            switch (input) {
+                case 1: // If "1" is input it calls the addNewRecipe method to add a new recipe to myRecipeBox 
+                    myRecipeBox.addNewRecipe();
+                    break;
+                case 2://If "2" is input it calls for the printAllRecipeDetails method to print all the details of the recipe that was entered
+                    Scanner recipeScnr = new Scanner(System.in);
+                    System.out.println("Which recipe?\n");
+                    String selectedRecipeName = recipeScnr.nextLine();
+                    myRecipeBox.printAllRecipeDetails(selectedRecipeName); //Method to print all recipe details
+                    break;
+                case 3:
+                    //If "3" is input it calls the printAllRecipeNames method to print the recipe names that have been entered
+                    myRecipeBox.printAllRecipeNames();
+                    break;
+                case 4:/*If "4" is input it calls the printAllRecipeNames method to print the recipe names for the user to see, 
+                    then it asks the user which recipe they would like to add instructions to. Once the recipe is chosen they 
+                    are asked to add instructions*/
+                    myRecipeBox.printAllRecipeNames();
+                    recipeScnr = new Scanner(System.in);
+                    System.out.println("Which recipe?\n");
+                    selectedRecipeName = recipeScnr.nextLine();
+                    myRecipeBox.addRecipeInstructions (selectedRecipeName); //Method to print all recipe details
+                    break;
+                case 5:
+                    //If "5" is entered it ends the operation
+                    endOper = true;
+                    break;
+                default:
+                    System.out.println("\nPlease make an appropriate selection - 1, 2, 3, 4, or 5");
+                    break;
+            }
+
+	    // If a number other than 1,2,3,or 4 are entered the user will be prompted to enter their input again
+            if (!endOper) {	
+            	System.out.println("Menu\n" + "1. Add Recipe\n" + "2. Print All Recipe Details\n" + "3. Print All Recipe Names\n" + "4. Add Recipe Instrutions\n" + "5. End Operation\n" + "\nPlease select a menu item:");
+	    }
+        }
+    }
+}
